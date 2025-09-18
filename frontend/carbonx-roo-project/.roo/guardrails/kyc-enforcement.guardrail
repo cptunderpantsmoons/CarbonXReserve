@@ -1,0 +1,15 @@
+name: KYC Enforcement Guardrail
+description: Block token transfers without KYC
+trigger:
+  on: [contract_deployment, transfer_function]
+checks:
+  - role: blockchain-engineer
+    task: |
+      Check smart contract for KYC requirement:
+      function transfer(address to, uint256 amount)
+      Must include:
+      require(isKYCApproved[msg.sender] && isKYCApproved[to], "KYC required");
+  - if: blockchain-engineer.output.kyc_check == false
+    then:
+      - block_deploy: true
+      - comment: "❌ MISSING KYC CHECK - ADD REQUIRE STATEMENT"

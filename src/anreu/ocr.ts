@@ -1,6 +1,6 @@
 // src/anreu/ocr.ts
 import * as pdf from 'pdf-parse';
-import * as csv from 'csv-parser';
+import csv from 'csv-parser';
 import { Readable } from 'stream';
 
 export interface ParsedANREUReceipt {

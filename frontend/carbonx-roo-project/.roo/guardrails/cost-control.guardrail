@@ -1,0 +1,14 @@
+name: Cost Control Guardrail
+description: Enforce infrastructure cost limits
+trigger:
+  on: [infra_deployment, agent_execution]
+checks:
+  - role: devops-engineer
+    task: "Monitor infrastructure costs"
+    max_cost: 1500 # AUD/week
+    max_runtime: 3600 # 1 hour
+  - if: devops-engineer.cost > 1500
+    then:
+      - notify: devops@carbonx.au
+      - terminate: devops-engineer
+      - log: "🚨 INFRA COST LIMIT EXCEEDED - TERMINATING AGENT"

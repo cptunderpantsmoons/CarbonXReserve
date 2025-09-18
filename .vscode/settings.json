@@ -1,0 +1,4 @@
+{
+    "codacy.cli.devMode": true,
+    "gitlens.ai.largePromptWarningThreshold": 200000
+}
